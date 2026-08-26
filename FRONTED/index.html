@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Disaster Management Digital Twin</title>
+
+    <!-- Leaflet CSS -->
+   <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
+
+    <!-- Our CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="header">
+
+        <div>
+            <h1>🌍 Disaster Management Digital Twin</h1>
+
+            <p>
+                AI-Powered Flood Risk & Emergency Decision Support
+            </p>
+        </div>
+
+        <div class="status">
+            ● SYSTEM ONLINE
+        </div>
+
+    </header>
+
+
+    <!-- ================= MAIN DASHBOARD ================= -->
+
+    <main class="dashboard">
+
+
+        <!-- ================= SIDEBAR ================= -->
+
+        <aside class="sidebar">
+
+            <h2>Current Conditions</h2>
+
+
+            <!-- Rainfall -->
+
+            <div class="card">
+
+                <div class="card-title">
+                    🌧️ Rainfall
+                </div>
+
+                <div class="value">
+                    <span id="rainfall">150</span>
+                    <small>mm</small>
+                </div>
+
+            </div>
+
+
+            <!-- Water Level -->
+
+            <div class="card">
+
+                <div class="card-title">
+                    🌊 Water Level
+                </div>
+
+                <div class="value">
+                    <span id="waterLevel">4.5</span>
+                    <small>m</small>
+                </div>
+
+            </div>
+
+
+            <!-- Flood Probability -->
+
+            <div class="card">
+
+                <div class="card-title">
+                    ⚠️ Flood Probability
+                </div>
+
+                <div class="value probability">
+                    <span id="probability">85</span>%
+                </div>
+
+            </div>
+
+
+            <!-- Risk -->
+
+            <div class="card">
+
+                <div class="card-title">
+                    🚨 Risk Level
+                </div>
+
+                <div
+                    id="risk"
+                    class="risk high"
+                >
+                    HIGH
+                </div>
+
+            </div>
+
+
+            <!-- ================= SIMULATION ================= -->
+
+            <div class="simulation">
+
+                <h2>🔮 What-If Simulation</h2>
+
+                <p class="simulation-text">
+                    Increase rainfall and simulate the possible future situation.
+                </p>
+
+
+                <label for="rainSlider">
+                    Rainfall Increase
+                </label>
+
+
+                <input
+                    type="range"
+                    id="rainSlider"
+                    min="0"
+                    max="50"
+                    value="0"
+                >
+
+
+                <div class="slider-value">
+
+                    +<span id="rainIncrease">0</span>%
+
+                </div>
+
+
+                <button
+                    id="simulateButton"
+                    onclick="simulate()"
+                >
+                    🔮 SIMULATE SCENARIO
+                </button>
+
+
+                <!-- Result -->
+
+                <div
+                    id="simulationResult"
+                    class="simulation-result"
+                >
+
+                    <p>
+                        Increase rainfall to see the predicted impact.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+
+        <!-- ================= MAP ================= -->
+
+        <section class="map-section">
+
+            <div class="map-header">
+
+                <div>
+
+                    <h2>Live Disaster Digital Twin</h2>
+
+                    <p>
+                        Risk visualization of the selected area
+                    </p>
+
+                </div>
+
+                <div class="map-status">
+                    🟢 Data Updated
+                </div>
+
+            </div>
+
+
+            <div id="map"></div>
+
+
+            <!-- MAP LEGEND -->
+
+            <div class="legend">
+
+                <h3>Risk Level</h3>
+
+                <div>
+                    <span class="legend-color low"></span>
+                    Low
+                </div>
+
+                <div>
+                    <span class="legend-color moderate"></span>
+                    Moderate
+                </div>
+
+                <div>
+                    <span class="legend-color high-risk"></span>
+                    High
+                </div>
+
+                <div>
+                    <span class="legend-color critical"></span>
+                    Critical
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= LEAFLET JS ================= -->
+
+ <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="..."
+    crossorigin=""
+></script>
+
+
+    <!-- Our JavaScript -->
+
+    <script src="app.js"></script>
+
+</body>
+
+</html>

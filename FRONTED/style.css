@@ -1,0 +1,560 @@
+/* =====================================================
+   GLOBAL
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #eef1f5;
+    color: #17202a;
+    overflow: hidden;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header {
+
+    height: 90px;
+
+    background: #17202a;
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 0 25px;
+
+    border-bottom: 3px solid #3498db;
+}
+
+
+.header h1 {
+
+    font-size: 28px;
+
+    margin-bottom: 5px;
+}
+
+
+.header p {
+
+    font-size: 14px;
+
+    color: #d5d8dc;
+}
+
+
+.status {
+
+    background: #1e8449;
+
+    padding: 9px 14px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: bold;
+}
+
+
+/* =====================================================
+   MAIN DASHBOARD
+===================================================== */
+
+.dashboard {
+
+    width: 100%;
+
+    height: calc(100vh - 90px);
+
+    display: flex;
+
+    overflow: hidden;
+}
+
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+
+.sidebar {
+
+    width: 340px;
+
+    min-width: 340px;
+
+    height: 100%;
+
+    background: #ffffff;
+
+    padding: 20px;
+
+    overflow-y: auto;
+
+    border-right: 1px solid #d5d8dc;
+}
+
+
+.sidebar > h2 {
+
+    font-size: 20px;
+
+    margin-bottom: 15px;
+}
+
+
+/* =====================================================
+   CONDITION CARDS
+===================================================== */
+
+.card {
+
+    background: #f8f9fa;
+
+    border: 1px solid #e1e5e8;
+
+    border-radius: 10px;
+
+    padding: 15px;
+
+    margin-bottom: 12px;
+
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+
+.card-title {
+
+    font-size: 14px;
+
+    color: #566573;
+
+    margin-bottom: 8px;
+
+    font-weight: bold;
+}
+
+
+.value {
+
+    font-size: 28px;
+
+    font-weight: bold;
+
+    color: #17202a;
+}
+
+
+.value small {
+
+    font-size: 15px;
+
+    color: #566573;
+}
+
+
+.probability {
+
+    color: #e67e22;
+}
+
+
+/* =====================================================
+   RISK
+===================================================== */
+
+.risk {
+
+    display: inline-block;
+
+    padding: 7px 14px;
+
+    border-radius: 20px;
+
+    font-weight: bold;
+
+    font-size: 14px;
+}
+
+
+.risk.high {
+
+    background: #fdebd0;
+
+    color: #d35400;
+}
+
+
+.risk.critical {
+
+    background: #fadbd8;
+
+    color: #922b21;
+}
+
+
+.risk.moderate {
+
+    background: #fcf3cf;
+
+    color: #9a7d0a;
+}
+
+
+/* =====================================================
+   SIMULATION
+===================================================== */
+
+.simulation {
+
+    margin-top: 22px;
+
+    padding-top: 20px;
+
+    border-top: 2px solid #e5e7e9;
+}
+
+
+.simulation h2 {
+
+    font-size: 19px;
+
+    margin-bottom: 8px;
+}
+
+
+.simulation-text {
+
+    color: #566573;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+    margin-bottom: 15px;
+}
+
+
+.simulation label {
+
+    font-size: 14px;
+
+    font-weight: bold;
+}
+
+
+input[type="range"] {
+
+    width: 100%;
+
+    margin: 15px 0;
+
+    cursor: pointer;
+}
+
+
+.slider-value {
+
+    text-align: center;
+
+    font-size: 20px;
+
+    font-weight: bold;
+
+    margin-bottom: 15px;
+}
+
+
+button {
+
+    width: 100%;
+
+    padding: 13px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #c0392b;
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+
+button:hover {
+
+    background: #922b21;
+
+    transform: translateY(-1px);
+}
+
+
+/* =====================================================
+   SIMULATION RESULT
+===================================================== */
+
+.simulation-result {
+
+    margin-top: 15px;
+
+    padding: 14px;
+
+    background: #f8f9fa;
+
+    border: 1px solid #e5e7e9;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+
+    line-height: 1.7;
+}
+
+
+.simulation-result strong {
+
+    font-size: 15px;
+}
+
+
+/* =====================================================
+   MAP SECTION
+===================================================== */
+
+.map-section {
+
+    flex: 1;
+
+    min-width: 0;
+
+    height: 100%;
+
+    position: relative;
+
+    display: flex;
+
+    flex-direction: column;
+
+    background: #dfe6e9;
+}
+
+
+.map-header {
+
+    height: 65px;
+
+    min-height: 65px;
+
+    background: white;
+
+    padding: 10px 18px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    border-bottom: 1px solid #d5d8dc;
+
+    z-index: 500;
+}
+
+
+.map-header h2 {
+
+    font-size: 17px;
+
+    margin-bottom: 3px;
+}
+
+
+.map-header p {
+
+    font-size: 12px;
+
+    color: #7b7d7d;
+}
+
+
+.map-status {
+
+    background: #e8f8f5;
+
+    color: #117864;
+
+    padding: 7px 12px;
+
+    border-radius: 15px;
+
+    font-size: 11px;
+
+    font-weight: bold;
+}
+
+
+/* =====================================================
+   LEAFLET MAP
+===================================================== */
+
+#map {
+
+    width: 100%;
+
+    height: calc(100% - 65px);
+
+    min-height: 0;
+
+    flex: 1;
+
+    background: #dfe6e9;
+}
+
+
+.leaflet-container {
+
+    width: 100%;
+
+    height: 100%;
+
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* =====================================================
+   MAP LEGEND
+===================================================== */
+
+.legend {
+
+    position: absolute;
+
+    right: 20px;
+
+    bottom: 25px;
+
+    z-index: 1000;
+
+    background: white;
+
+    padding: 12px 15px;
+
+    border-radius: 8px;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.25);
+
+    font-size: 12px;
+}
+
+
+.legend h3 {
+
+    margin-bottom: 8px;
+
+    font-size: 14px;
+}
+
+
+.legend div {
+
+    margin: 5px 0;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+}
+
+
+.legend-color {
+
+    width: 14px;
+
+    height: 14px;
+
+    display: inline-block;
+
+    border-radius: 3px;
+}
+
+
+.legend-color.low {
+
+    background: #2ecc71;
+}
+
+
+.legend-color.moderate {
+
+    background: #f1c40f;
+}
+
+
+.legend-color.high-risk {
+
+    background: #e67e22;
+}
+
+
+.legend-color.critical {
+
+    background: #e74c3c;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 800px) {
+
+    .sidebar {
+
+        width: 280px;
+
+        min-width: 280px;
+    }
+
+
+    .header h1 {
+
+        font-size: 20px;
+    }
+
+
+    .status {
+
+        display: none;
+    }
+
+}
