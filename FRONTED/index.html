@@ -1,250 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disaster Management Digital Twin | KIIT Bhubaneswar</title>
 
-    <title>Disaster Management Digital Twin</title>
-
-    <!-- Leaflet CSS -->
-   <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-/>
-
-    <!-- Our CSS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-    <!-- ================= HEADER ================= -->
-
+    <!-- ============= HEADER ============= -->
     <header class="header">
-
-        <div>
-            <h1>🌍 Disaster Management Digital Twin</h1>
-
-            <p>
-                AI-Powered Flood Risk & Emergency Decision Support
-            </p>
+        <div class="header-left">
+            <div class="logo-badge">DT</div>
+            <div>
+                <h1>Disaster Digital Twin</h1>
+                <p>AI-Powered Flood Prediction &amp; Emergency Decision Support</p>
+            </div>
         </div>
-
-        <div class="status">
-            ● SYSTEM ONLINE
+        <div class="header-right">
+            <div class="header-tag location">
+                <span class="dot green"></span>
+                KIIT University, Bhubaneswar
+            </div>
+            <div class="header-tag system-online">
+                <span class="dot pulse-dot"></span>
+                SYSTEM ONLINE
+            </div>
         </div>
-
     </header>
 
-
-    <!-- ================= MAIN DASHBOARD ================= -->
-
+    <!-- ============= DASHBOARD ============= -->
     <main class="dashboard">
 
+        <!-- ============= LEFT PANEL ============= -->
+        <aside class="panel-left">
 
-        <!-- ================= SIDEBAR ================= -->
+            <!-- Stats Grid -->
+            <div class="stats-grid">
 
-        <aside class="sidebar">
-
-            <h2>Current Conditions</h2>
-
-
-            <!-- Rainfall -->
-
-            <div class="card">
-
-                <div class="card-title">
-                    🌧️ Rainfall
+                <div class="stat-card">
+                    <div class="stat-label">Rainfall</div>
+                    <div class="stat-value"><span id="rainfall">80</span><small> mm</small></div>
+                    <div class="stat-bar">
+                        <div class="stat-bar-fill rain-bar" style="width:60%"></div>
+                    </div>
                 </div>
 
-                <div class="value">
-                    <span id="rainfall">150</span>
-                    <small>mm</small>
+                <div class="stat-card">
+                    <div class="stat-label">Water Level</div>
+                    <div class="stat-value"><span id="waterLevel">1.8</span><small> m</small></div>
+                    <div class="stat-bar">
+                        <div class="stat-bar-fill water-bar" style="width:36%"></div>
+                    </div>
                 </div>
 
-            </div>
-
-
-            <!-- Water Level -->
-
-            <div class="card">
-
-                <div class="card-title">
-                    🌊 Water Level
+                <div class="stat-card accent-card">
+                    <div class="stat-label">Flood Probability</div>
+                    <div class="stat-value prob-value"><span id="probability">35</span><small>%</small></div>
+                    <div class="stat-bar">
+                        <div class="stat-bar-fill prob-bar" style="width:35%"></div>
+                    </div>
                 </div>
 
-                <div class="value">
-                    <span id="waterLevel">4.5</span>
-                    <small>m</small>
-                </div>
-
-            </div>
-
-
-            <!-- Flood Probability -->
-
-            <div class="card">
-
-                <div class="card-title">
-                    ⚠️ Flood Probability
-                </div>
-
-                <div class="value probability">
-                    <span id="probability">85</span>%
+                <div class="stat-card">
+                    <div class="stat-label">Risk Level</div>
+                    <div id="risk" class="risk-badge moderate">MODERATE</div>
                 </div>
 
             </div>
 
-
-            <!-- Risk -->
-
-            <div class="card">
-
-                <div class="card-title">
-                    🚨 Risk Level
+            <!-- Impact Section -->
+            <div class="impact-section">
+                <h3 class="section-label">Impact Estimation</h3>
+                <div class="impact-grid">
+                    <div class="impact-item">
+                        <div class="impact-number" id="affectedPop">3,000</div>
+                        <div class="impact-text">Affected Population</div>
+                    </div>
+                    <div class="impact-item">
+                        <div class="impact-number" id="affectedArea">1.5</div>
+                        <div class="impact-text">Affected Area (km2)</div>
+                    </div>
                 </div>
-
-                <div
-                    id="risk"
-                    class="risk high"
-                >
-                    HIGH
-                </div>
-
             </div>
 
+            <!-- Simulation -->
+            <div class="sim-section">
+                <h3 class="section-label">What-If Simulation</h3>
+                <p class="sim-desc">Adjust rainfall to simulate flood impact on KIIT area</p>
 
-            <!-- ================= SIMULATION ================= -->
-
-            <div class="simulation">
-
-                <h2>🔮 What-If Simulation</h2>
-
-                <p class="simulation-text">
-                    Increase rainfall and simulate the possible future situation.
-                </p>
-
-
-                <label for="rainSlider">
-                    Rainfall Increase
-                </label>
-
-
-                <input
-                    type="range"
-                    id="rainSlider"
-                    min="0"
-                    max="50"
-                    value="0"
-                >
-
-
-                <div class="slider-value">
-
-                    +<span id="rainIncrease">0</span>%
-
+                <div class="slider-group">
+                    <label>Rainfall Increase</label>
+                    <div class="slider-display">+<span id="rainIncrease">0</span>%</div>
+                    <input type="range" id="rainSlider" min="0" max="50" value="0">
                 </div>
 
-
-                <button
-                    id="simulateButton"
-                    onclick="simulate()"
-                >
-                    🔮 SIMULATE SCENARIO
+                <button id="simulateButton" onclick="simulate()">
+                    RUN SIMULATION
                 </button>
 
-
-                <!-- Result -->
-
-                <div
-                    id="simulationResult"
-                    class="simulation-result"
-                >
-
-                    <p>
-                        Increase rainfall to see the predicted impact.
-                    </p>
-
+                <div id="simulationResult" class="sim-result">
+                    <p class="sim-placeholder">Adjust the slider and run simulation to see predicted impact.</p>
                 </div>
-
             </div>
 
         </aside>
 
+        <!-- ============= MAP SECTION ============= -->
+        <section class="map-area">
 
-        <!-- ================= MAP ================= -->
-
-        <section class="map-section">
-
-            <div class="map-header">
-
+            <div class="map-toolbar">
                 <div>
-
-                    <h2>Live Disaster Digital Twin</h2>
-
-                    <p>
-                        Risk visualization of the selected area
-                    </p>
-
+                    <h2>Live Digital Twin Map</h2>
+                    <p>KIIT University &amp; surrounding area, Bhubaneswar, Odisha</p>
                 </div>
-
-                <div class="map-status">
-                    🟢 Data Updated
+                <div class="toolbar-right">
+                    <div class="toolbar-tag">
+                        <span class="dot green"></span>
+                        Live
+                    </div>
                 </div>
-
             </div>
-
 
             <div id="map"></div>
 
+            <!-- Legend -->
+            <div class="legend-box">
+                <h4>Risk Zones</h4>
+                <div class="legend-row"><span class="legend-dot" style="background:#2ecc71"></span> Low</div>
+                <div class="legend-row"><span class="legend-dot" style="background:#f1c40f"></span> Moderate</div>
+                <div class="legend-row"><span class="legend-dot" style="background:#e67e22"></span> High</div>
+                <div class="legend-row"><span class="legend-dot" style="background:#e74c3c"></span> Critical</div>
+            </div>
 
-            <!-- MAP LEGEND -->
-
-            <div class="legend">
-
-                <h3>Risk Level</h3>
-
-                <div>
-                    <span class="legend-color low"></span>
-                    Low
+            <!-- Emergency Info (bottom bar) -->
+            <div class="emergency-bar" id="emergencyBar">
+                <div class="emergency-item">
+                    <span class="em-icon">&#127973;</span>
+                    <span>KIMS Hospital -- 0.5 km</span>
                 </div>
-
-                <div>
-                    <span class="legend-color moderate"></span>
-                    Moderate
+                <div class="emergency-item">
+                    <span class="em-icon">&#127968;</span>
+                    <span>OSDMA Shelter -- 8.2 km</span>
                 </div>
-
-                <div>
-                    <span class="legend-color high-risk"></span>
-                    High
+                <div class="emergency-item">
+                    <span class="em-icon">&#127754;</span>
+                    <span>Kuakhai River -- 6.7 km</span>
                 </div>
-
-                <div>
-                    <span class="legend-color critical"></span>
-                    Critical
+                <div class="emergency-item" id="emergencyAction">
+                    <span class="em-icon">&#128680;</span>
+                    <span>Action: Monitor area drainage</span>
                 </div>
-
             </div>
 
         </section>
 
     </main>
 
-
-    <!-- ================= LEAFLET JS ================= -->
-
- <script
-    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="..."
-    crossorigin=""
-></script>
-
-
-    <!-- Our JavaScript -->
-
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="app.js"></script>
-
 </body>
-
 </html>

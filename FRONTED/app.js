@@ -1,22 +1,16 @@
 // =====================================================
-// DISASTER MANAGEMENT DIGITAL TWIN
+// DISASTER DIGITAL TWIN  --  KIIT Bhubaneswar
 // =====================================================
 
-
 // =====================================================
-// 1. CREATE MAP
+// 1. MAP  (KIIT University)
 // =====================================================
 
 const map = L.map("map", {
-    center: [22.5726, 88.3639],
-    zoom: 11,
+    center: [20.3541, 85.8207],
+    zoom: 13,
     zoomControl: true
 });
-
-
-// =====================================================
-// 2. OPENSTREETMAP MAP LAYER
-// =====================================================
 
 L.tileLayer(
     "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
@@ -28,373 +22,182 @@ L.tileLayer(
 
 
 // =====================================================
-// 3. HOSPITAL
+// 2. MARKERS
 // =====================================================
 
-const hospitalIcon = L.divIcon({
-    html: "🏥",
-    className: "custom-marker",
-    iconSize: [30, 30],
-    iconAnchor: [15, 15]
+function makeIcon(emoji, size) {
+    return L.divIcon({
+        html: "<div style='font-size:" + size + "px;line-height:1'>" + emoji + "</div>",
+        className: "custom-marker",
+        iconSize: [30, 30],
+        iconAnchor: [15, 15]
+    });
+}
+
+// KIIT University
+L.marker([20.3541, 85.8207], { icon: makeIcon("\uD83C\uDF93", 22) })
+    .addTo(map)
+    .bindPopup("<strong>KIIT University</strong><br>Kalinga Institute of Industrial Technology<br>Patia, Bhubaneswar, Odisha");
+
+// KIMS Hospital
+L.marker([20.3568, 85.8150], { icon: makeIcon("\uD83C\uDFE5", 20) })
+    .addTo(map)
+    .bindPopup("<strong>KIMS Hospital</strong><br>2600-bed multi-specialty hospital<br>KIIT Campus-5");
+
+// OSDMA HQ
+L.marker([20.2726, 85.8390], { icon: makeIcon("\uD83C\uDFE0", 20) })
+    .addTo(map)
+    .bindPopup("<strong>OSDMA HQ</strong><br>Odisha State Disaster Management Authority<br>Rajiv Bhawan, Unit 5");
+
+// Kuakhai River
+L.marker([20.2870, 85.8750], { icon: makeIcon("\uD83C\uDF0A", 20) })
+    .addTo(map)
+    .bindPopup("<strong>Kuakhai River Belt</strong><br>Mahanadi distributary<br>High flood risk during monsoon");
+
+
+// =====================================================
+// 3. RISK ZONES
+// =====================================================
+
+var lowZone = L.circle([20.3541, 85.8207], {
+    radius: 800,
+    color: "#2ecc71", fillColor: "#2ecc71",
+    fillOpacity: 0.15, weight: 1.5
+}).addTo(map).bindPopup("<strong>Low Risk</strong><br>KIIT Campus -- Good drainage");
+
+var moderateZone = L.circle([20.3400, 85.8100], {
+    radius: 1500,
+    color: "#f1c40f", fillColor: "#f1c40f",
+    fillOpacity: 0.18, weight: 1.5
+}).addTo(map).bindPopup("<strong>Moderate Risk</strong><br>Patia-Chandrasekharpur area");
+
+var highZone = L.circle([20.3200, 85.8350], {
+    radius: 1800,
+    color: "#e67e22", fillColor: "#e67e22",
+    fillOpacity: 0.22, weight: 1.5
+}).addTo(map).bindPopup("<strong>High Risk</strong><br>Low-lying residential areas<br>Poor drainage, waterlogging common");
+
+var criticalZone = L.circle([20.2870, 85.8750], {
+    radius: 1200,
+    color: "#e74c3c", fillColor: "#e74c3c",
+    fillOpacity: 0.30, weight: 1.5
+}).addTo(map).bindPopup("<strong>CRITICAL</strong><br>Kuakhai River flood plain<br>Immediate evacuation during heavy rain");
+
+
+// =====================================================
+// 4. SLIDER
+// =====================================================
+
+var rainSlider   = document.getElementById("rainSlider");
+var rainIncrease = document.getElementById("rainIncrease");
+
+rainSlider.addEventListener("input", function () {
+    rainIncrease.innerText = rainSlider.value;
 });
 
 
-L.marker(
-    [22.5726, 88.3639],
-    {
-        icon: hospitalIcon
-    }
-)
-.addTo(map)
-.bindPopup(`
-    <strong>🏥 Emergency Hospital</strong>
-    <br>
-    Emergency medical facility
-`);
-
-
 // =====================================================
-// 4. SHELTER
-// =====================================================
-
-const shelterIcon = L.divIcon({
-    html: "🏠",
-    className: "custom-marker",
-    iconSize: [30, 30],
-    iconAnchor: [15, 15]
-});
-
-
-L.marker(
-    [22.5958, 88.2636],
-    {
-        icon: shelterIcon
-    }
-)
-.addTo(map)
-.bindPopup(`
-    <strong>🏠 Emergency Shelter</strong>
-    <br>
-    Safe evacuation location
-`);
-
-
-// =====================================================
-// 5. MODERATE RISK ZONE
-// =====================================================
-
-const moderateZone = L.circle(
-    [22.58, 88.38],
-    {
-        radius: 2500,
-
-        color: "#f1c40f",
-
-        fillColor: "#f1c40f",
-
-        fillOpacity: 0.30,
-
-        weight: 2
-    }
-)
-.addTo(map)
-.bindPopup(`
-    <strong>🟡 Moderate Risk Zone</strong>
-    <br>
-    Monitor water level and rainfall.
-`);
-
-
-// =====================================================
-// 6. HIGH RISK ZONE
-// =====================================================
-
-const highZone = L.circle(
-    [22.55, 88.35],
-    {
-        radius: 1800,
-
-        color: "#e67e22",
-
-        fillColor: "#e67e22",
-
-        fillOpacity: 0.35,
-
-        weight: 2
-    }
-)
-.addTo(map)
-.bindPopup(`
-    <strong>🟠 High Risk Zone</strong>
-    <br>
-    Prepare emergency resources.
-`);
-
-
-// =====================================================
-// 7. CRITICAL RISK ZONE
-// =====================================================
-
-const criticalZone = L.circle(
-    [22.62, 88.40],
-    {
-        radius: 1200,
-
-        color: "#e74c3c",
-
-        fillColor: "#e74c3c",
-
-        fillOpacity: 0.45,
-
-        weight: 2
-    }
-)
-.addTo(map)
-.bindPopup(`
-    <strong>🔴 Critical Risk Zone</strong>
-    <br>
-    Immediate emergency preparation required.
-`);
-
-
-// =====================================================
-// 8. RAINFALL SLIDER
-// =====================================================
-
-const rainSlider =
-    document.getElementById("rainSlider");
-
-
-const rainIncrease =
-    document.getElementById("rainIncrease");
-
-
-rainSlider.addEventListener(
-    "input",
-    function () {
-
-        rainIncrease.innerText =
-            rainSlider.value;
-
-    }
-);
-
-
-// =====================================================
-// 9. WHAT-IF SIMULATION
+// 5. SIMULATE
 // =====================================================
 
 function simulate() {
 
-    // Get slider value
+    var increase        = Number(rainSlider.value);
+    var currentRainfall = 80;
+    var newRainfall     = currentRainfall * (1 + increase / 100);
 
-    const increase =
-        Number(rainSlider.value);
+    // demo prediction
+    var probability = 35 + (increase * 1.2);
+    if (probability > 99) probability = 99;
 
+    // risk level
+    var risk;
+    if (probability >= 75)      risk = "CRITICAL";
+    else if (probability >= 50) risk = "HIGH";
+    else if (probability >= 25) risk = "MODERATE";
+    else                        risk = "LOW";
 
-    // Current rainfall
+    // affected pop
+    var affectedPop  = 3000;
+    var affectedArea = 1.5;
+    if (risk === "CRITICAL")       { affectedPop = 25000; affectedArea = 5.0; }
+    else if (risk === "HIGH")      { affectedPop = 12500; affectedArea = 3.0; }
+    else if (risk === "MODERATE")  { affectedPop = 3000;  affectedArea = 1.5; }
+    else                           { affectedPop = 500;   affectedArea = 0.5; }
 
-    const currentRainfall = 150;
+    // ---- UPDATE UI ----
 
+    document.getElementById("rainfall").innerText    = newRainfall.toFixed(0);
+    document.getElementById("probability").innerText = probability.toFixed(0);
+    document.getElementById("affectedPop").innerText  = affectedPop.toLocaleString();
+    document.getElementById("affectedArea").innerText = affectedArea.toFixed(1);
 
-    // Calculate new rainfall
+    // prob bar
+    var probBar = document.querySelector(".prob-bar");
+    if (probBar) probBar.style.width = probability.toFixed(0) + "%";
 
-    const newRainfall =
-        currentRainfall *
-        (1 + increase / 100);
+    // rain bar
+    var rainBar = document.querySelector(".rain-bar");
+    if (rainBar) rainBar.style.width = Math.min((newRainfall / 250) * 100, 100).toFixed(0) + "%";
 
+    // risk badge
+    var riskEl = document.getElementById("risk");
+    riskEl.innerText = risk;
+    riskEl.className = "risk-badge " + risk.toLowerCase();
 
-    // =================================================
-    // TEMPORARY DEMO PREDICTION
-    // =================================================
+    // emergency action
+    var actionText = "Action: Continue routine monitoring";
+    if (risk === "CRITICAL")       actionText = "ACTION: EVACUATE -- Activate OSDMA protocol";
+    else if (risk === "HIGH")      actionText = "Action: Prepare emergency resources";
+    else if (risk === "MODERATE")  actionText = "Action: Monitor area drainage";
+    document.getElementById("emergencyAction").innerHTML =
+        "<span class='em-icon'>&#128680;</span><span>" + actionText + "</span>";
 
-    let probability =
-        85 + (increase * 0.28);
+    // sim result
+    document.getElementById("simulationResult").innerHTML =
+        "<strong>Simulation Result</strong><br><br>" +
+        "New Rainfall: <strong>" + newRainfall.toFixed(1) + " mm</strong><br>" +
+        "Flood Probability: <strong>" + probability.toFixed(0) + "%</strong><br>" +
+        "Risk Level: <strong>" + risk + "</strong><br>" +
+        "Affected Population: <strong>" + affectedPop.toLocaleString() + "</strong><br>" +
+        "Affected Area: <strong>" + affectedArea.toFixed(1) + " km2</strong><br><br>" +
+        "Recommended: <strong>" +
+        (risk === "CRITICAL"
+            ? "EVACUATE -- Deploy NDRF, activate all emergency shelters."
+            : risk === "HIGH"
+            ? "ALERT -- Prepare rescue teams, standby shelters."
+            : risk === "MODERATE"
+            ? "MONITOR -- Track water levels and drainage."
+            : "NORMAL -- Continue routine operations.") +
+        "</strong>";
 
-
-    // Maximum 99%
-
-    if (probability > 99) {
-
-        probability = 99;
-
-    }
-
-
-    // Determine risk
-
-    let risk = "HIGH";
-
-
-    if (probability >= 90) {
-
-        risk = "CRITICAL";
-
-    }
-
-
-    // =================================================
-    // UPDATE DASHBOARD
-    // =================================================
-
-    document.getElementById(
-        "probability"
-    ).innerText =
-        probability.toFixed(0);
-
-
-    const riskElement =
-        document.getElementById("risk");
-
-
-    riskElement.innerText =
-        risk;
-
-
-    // Remove old risk classes
-
-    riskElement.classList.remove(
-        "high",
-        "critical",
-        "moderate"
-    );
-
-
-    // Add new class
-
+    // ---- MAP UPDATE ----
     if (risk === "CRITICAL") {
-
-        riskElement.classList.add(
-            "critical"
-        );
-
+        criticalZone.setStyle({ fillOpacity: 0.55 });
+        criticalZone.setRadius(1800);
+        highZone.setStyle({ fillOpacity: 0.40 });
+        highZone.setRadius(2200);
+    } else if (risk === "HIGH") {
+        criticalZone.setStyle({ fillOpacity: 0.35 });
+        criticalZone.setRadius(1400);
+        highZone.setStyle({ fillOpacity: 0.30 });
+        highZone.setRadius(2000);
     } else {
-
-        riskElement.classList.add(
-            "high"
-        );
-
+        criticalZone.setStyle({ fillOpacity: 0.30 });
+        criticalZone.setRadius(1200);
+        highZone.setStyle({ fillOpacity: 0.22 });
+        highZone.setRadius(1800);
     }
-
-
-    // =================================================
-    // SIMULATION RESULT
-    // =================================================
-
-    let affectedPopulation = 12500;
-
-
-    if (risk === "CRITICAL") {
-
-        affectedPopulation = 18500;
-
-    }
-
-
-    document.getElementById(
-        "simulationResult"
-    ).innerHTML = `
-
-        <strong>🔮 Simulation Result</strong>
-
-        <br><br>
-
-        🌧️ New Rainfall:
-        <strong>
-            ${newRainfall.toFixed(1)} mm
-        </strong>
-
-        <br>
-
-        ⚠️ Flood Probability:
-        <strong>
-            ${probability.toFixed(0)}%
-        </strong>
-
-        <br>
-
-        🚨 Risk Level:
-        <strong>
-            ${risk}
-        </strong>
-
-        <br>
-
-        👥 Estimated Affected Population:
-        <strong>
-            ${affectedPopulation.toLocaleString()}
-        </strong>
-
-        <br><br>
-
-        🏠 Recommended Action:
-        <strong>
-            ${risk === "CRITICAL"
-                ? "Prepare evacuation and emergency resources."
-                : "Monitor the area and prepare resources."
-            }
-        </strong>
-
-    `;
-
-
-    // =================================================
-    // VISUAL MAP UPDATE
-    // =================================================
-
-    if (risk === "CRITICAL") {
-
-        criticalZone.setStyle({
-
-            fillOpacity: 0.60,
-
-            radius: 1800
-
-        });
-
-    } else {
-
-        criticalZone.setStyle({
-
-            fillOpacity: 0.45,
-
-            radius: 1200
-
-        });
-
-    }
-
 }
 
 
 // =====================================================
-// 10. FIX LEAFLET SIZE
+// 6. FIX MAP SIZE
 // =====================================================
 
-window.addEventListener(
-    "load",
-    function () {
-
-        setTimeout(
-            function () {
-
-                map.invalidateSize();
-
-            },
-            500
-        );
-
-    }
-);
-
-
-// Also fix when browser window changes
-
-window.addEventListener(
-    "resize",
-    function () {
-
-        map.invalidateSize();
-
-    }
-);
+window.addEventListener("load", function () {
+    setTimeout(function () { map.invalidateSize(); }, 500);
+});
+window.addEventListener("resize", function () {
+    map.invalidateSize();
+});
