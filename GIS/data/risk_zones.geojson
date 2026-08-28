@@ -5,7 +5,7 @@
         {
             "type": "Feature",
 
-            "properties": {
+            "properties": { 
                 "id": "ZONE_01",
                 "name": "Low Risk Zone",
                 "risk": "LOW",
