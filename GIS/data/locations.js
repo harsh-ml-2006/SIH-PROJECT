@@ -1,5 +1,5 @@
 const GIS_LOCATIONS = {
-
+ 
     hospital: {
         name: "KIMS Hospital",
         type: "Hospital",
